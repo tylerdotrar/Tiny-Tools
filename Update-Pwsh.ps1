@@ -1,7 +1,7 @@
 ﻿function Update-Pwsh {
 #.SYNOPSIS
-# Automatically update PowerShell Core to the latest version.
-# ARBITRARY VERSION NUMBER:  1.0.0
+# Automatically update PowerShell Core to the latest version on Windows.
+# ARBITRARY VERSION NUMBER:  1.1.1
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
@@ -10,7 +10,7 @@
 # install said release.
 #
 #.LINK
-# https://github.com/tylerdotrar/<TBD>
+# https://github.com/tylerdotrar/Tiny-Tools
 
 
     # Determine most recent Windows x64 version of PowerShell

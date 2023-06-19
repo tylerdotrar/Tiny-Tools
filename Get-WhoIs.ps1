@@ -1,19 +1,16 @@
 ﻿function Get-WhoIs {
 #.SYNOPSIS
 # Rudimentary WhoIs script.
-# ARBITRARY VERSION NUMBER:  1.1.1
-# AUTHOR:  Tyler McCann (@tyler.rar)
+# ARBITRARY VERSION NUMBER:  1.2.0
+# AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
 # Script that reaches out to "http://whois.arin.net/rest/ip/..." and returns WhoIs
-# infomration on input IP addresses.
-#
-# Recommendations:
-# -- Use 'TinyTools.psm1' (and included instructions) from the repo to load this script from your $PROFILE.
+# information on input IP addresses.
 #
 # Parameters:
-#    -IPAddress     -->    IP address to lookup
-#    -Help          -->    (Optional) Return Get-Help information
+#    -Target     -->    IP address to lookup
+#    -Help        ->    Return Get-Help information
 #
 # Example Usage:
 #    []  PS C:\Users\Bobby> Get-WhoIs 8.8.8.8
@@ -27,7 +24,6 @@
 #        NetBlocks              : 8.8.8.0/24
 #        Updated                : 3/14/2014 4:52:05 PM
 #
-#    [] PS C:\Users\Bobby>
 #
 #.LINK
 # https://github.com/tylerdotrar/Tiny-Tools
@@ -37,10 +33,16 @@
         [switch]    $Help
     )
 
-    # Return help information
+
+    # Return Get-Help Information
     if ($Help) { return Get-Help Get-WhoIs }
 
 
+    # Error Correction
+    if (!$IPAddress) { return (Write-Host 'Input IP address.' -ForegroundColor Red) }
+
+
+    # Whois Lookup
     Try {
         $Header = @{"Accept" = "application/xml"}
         $URL = "http://whois.arin.net/rest/ip/$IPAddress"
@@ -48,12 +50,15 @@
         $Response = Invoke-Restmethod $URL -Headers $Header -ErrorAction Stop
     }
 
+
+    # Error Catching
     Catch {
         $ErrorMsg = "An error occurred when retrieving WhoIs information for $IPAddress."
-        Write-Host $ErrorMsg -ForegroundColor Red
+        return (Write-Host $ErrorMsg -ForegroundColor Red)
     }
 
 
+    # Format Output
     if ($Response.net) {
         [pscustomobject]@{
             IP                      = $IPAddress

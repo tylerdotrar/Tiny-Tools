@@ -1,7 +1,7 @@
 ﻿function VPN-Tunnel  {
 #.SYNOPSIS
 # Easily toggle WireGuard VPN tunnels.
-# ARBITRARY VERSION NUMBER:  1.0.1
+# ARBITRARY VERSION NUMBER:  1.1.1
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
@@ -10,18 +10,27 @@
 # Parameters:
 #    -Enable        -->    Activate WireGuard interface
 #    -Disable       -->    Deactivate WireGuard interface
+#    -Restart       -->    Refresh Wireguard interface
 #    -Tunnel        -->    Specify tunnel (.conf.dpapi)
 #    -Status        -->    Check current status of tunnel
+#    -Help          -->    Return Get-Help Information
 #
 #.LINK
-# https://github.com/tylerdotrar/<TBD>
+# https://github.com/tylerdotrar/Tiny-Tools
 
-    Params(
+    Param(
+		[string]$Tunnel = 'PEN15_VPN',
         [switch]$Enable,
         [switch]$Disable,
-        [string]$Tunnel = 'PEN15_VPN',
-        [switch]$Status
+		[switch]$Restart,
+        [switch]$Status,
+		[switch]$Help
     )
+	
+	
+	# Return Get-Help Information
+	if ($Help) { return Get-Help VPN-Tunnel }
+	
 
     # Get tunnel config path & determine if a tunnel aready exists
 	$TunnelConf = "$env:ProgramFiles\Wireguard\Data\Configurations\$Tunnel" + ".conf.dpapi"
@@ -48,6 +57,15 @@
         return (Write-Host 'No VPN tunnel established.' -ForegroundColor Red)
 	}
     
+	
+	# Refresh VPN tunnel.
+	elseif ($Restart) {
+		wireguard /uninstalltunnelservice $Tunnel 2>$NULL
+        Start-Sleep -Seconds 3
+		wireguard /installtunnelservice $TunnelConf 2>$NULL
+		
+		return (Write-Host 'VPN tunnel restarted.' -ForegroundColor Green)
+	}
 
     # Return current VPN status
 	Write-Host 'STATUS: ' -ForegroundColor Yellow -NoNewline

@@ -1,7 +1,7 @@
 ﻿function Find-File {
 #.SYNOPSIS
 # Recursively parse for and through files.
-# ARBITRARY VERSION NUMBER:  1.0.0
+# ARBITRARY VERSION NUMBER:  1.1.1
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
@@ -21,7 +21,7 @@
 #    -Help          -->   Return Get-Help information.
 #
 #.LINK
-# https://github.com/tylerdotrar/TBA
+# https://github.com/tylerdotrar/Tiny-Tools
     
 
     Param(
