@@ -1,16 +1,16 @@
 ﻿function Get-WhoIs {
 #.SYNOPSIS
 # Rudimentary WhoIs script.
-# ARBITRARY VERSION NUMBER:  1.2.0
+# ARBITRARY VERSION NUMBER:  1.2.5
 # AUTHOR:  Tyler McCann (@tylerdotrar)
 #
 #.DESCRIPTION
-# Script that reaches out to "http://whois.arin.net/rest/ip/..." and returns WhoIs
-# information on input IP addresses.
+# Script that reaches out to "http://whois.arin.net/rest/ip/..." and 
+# returns WhoIs information on input IP addresses.
 #
 # Parameters:
-#    -Target     -->    IP address to lookup
-#    -Help        ->    Return Get-Help information
+#    -IPAddress   -->    IP address to lookup
+#    -Help        -->    Return Get-Help information
 #
 # Example Usage:
 #    []  PS C:\Users\Bobby> Get-WhoIs 8.8.8.8
